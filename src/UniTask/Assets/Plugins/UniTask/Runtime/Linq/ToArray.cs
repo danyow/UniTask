@@ -19,7 +19,7 @@ namespace Cysharp.Threading.Tasks.Linq
     {
         internal static async UniTask<TSource[]> ToArrayAsync<TSource>(IUniTaskAsyncEnumerable<TSource> source, CancellationToken cancellationToken)
         {
-            var pool = ArrayPool<TSource>.Shared;
+            var pool = CompatibleArrayPool<TSource>.Shared;
             var array = pool.Rent(16);
 
             TSource[] result = default;
@@ -30,7 +30,7 @@ namespace Cysharp.Threading.Tasks.Linq
                 var i = 0;
                 while (await e.MoveNextAsync())
                 {
-                    ArrayPoolUtil.EnsureCapacity(ref array, i, pool);
+                    CompatibleArrayPoolUtil.EnsureCapacity(ref array, i, pool);
                     array[i++] = e.Current;
                 }
 

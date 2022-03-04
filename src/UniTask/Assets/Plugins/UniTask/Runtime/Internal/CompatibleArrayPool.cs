@@ -7,19 +7,19 @@ namespace Cysharp.Threading.Tasks.Internal
 {
     // Same interface as System.Buffers.ArrayPool<T> but only provides Shared.
 
-    internal sealed class ArrayPool<T>
+    internal sealed class CompatibleArrayPool<T>
     {
         // Same size as System.Buffers.DefaultArrayPool<T>
         const int DefaultMaxNumberOfArraysPerBucket = 50;
 
         static readonly T[] EmptyArray = new T[0];
 
-        public static readonly ArrayPool<T> Shared = new ArrayPool<T>();
+        public static readonly CompatibleArrayPool<T> Shared = new CompatibleArrayPool<T>();
 
         readonly MinimumQueue<T[]>[] buckets;
         readonly SpinLock[] locks;
 
-        ArrayPool()
+        CompatibleArrayPool()
         {
             // see: GetQueueIndex
             buckets = new MinimumQueue<T[]>[18];

@@ -6,10 +6,10 @@ using System.Runtime.CompilerServices;
 
 namespace Cysharp.Threading.Tasks.Internal
 {
-    internal static class ArrayPoolUtil
+    internal static class CompatibleArrayPoolUtil
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void EnsureCapacity<T>(ref T[] array, int index, ArrayPool<T> pool)
+        internal static void EnsureCapacity<T>(ref T[] array, int index, CompatibleArrayPool<T> pool)
         {
             if (array.Length <= index)
             {
@@ -18,7 +18,7 @@ namespace Cysharp.Threading.Tasks.Internal
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        static void EnsureCapacityCore<T>(ref T[] array, int index, ArrayPool<T> pool)
+        static void EnsureCapacityCore<T>(ref T[] array, int index, CompatibleArrayPool<T> pool)
         {
             if (array.Length <= index)
             {
@@ -48,7 +48,7 @@ namespace Cysharp.Threading.Tasks.Internal
                 }
 
                 defaultCount = coll.Count;
-                var pool = ArrayPool<T>.Shared;
+                var pool = CompatibleArrayPool<T>.Shared;
                 var buffer = pool.Rent(defaultCount);
                 coll.CopyTo(buffer, 0);
                 return new RentArray<T>(buffer, coll.Count, pool);
@@ -64,7 +64,7 @@ namespace Cysharp.Threading.Tasks.Internal
             }
 
             {
-                var pool = ArrayPool<T>.Shared;
+                var pool = CompatibleArrayPool<T>.Shared;
 
                 var index = 0;
                 var buffer = pool.Rent(defaultCount);
@@ -82,9 +82,9 @@ namespace Cysharp.Threading.Tasks.Internal
         {
             public readonly T[] Array;
             public readonly int Length;
-            ArrayPool<T> pool;
+            CompatibleArrayPool<T> pool;
 
-            public RentArray(T[] array, int length, ArrayPool<T> pool)
+            public RentArray(T[] array, int length, CompatibleArrayPool<T> pool)
             {
                 this.Array = array;
                 this.Length = length;

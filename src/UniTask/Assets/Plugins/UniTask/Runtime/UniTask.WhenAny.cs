@@ -21,7 +21,7 @@ namespace Cysharp.Threading.Tasks
 
         public static UniTask<(int winArgumentIndex, T result)> WhenAny<T>(IEnumerable<UniTask<T>> tasks)
         {
-            using (var span = ArrayPoolUtil.Materialize(tasks))
+            using (var span = CompatibleArrayPoolUtil.Materialize(tasks))
             {
                 return new UniTask<(int, T)>(new WhenAnyPromise<T>(span.Array, span.Length), 0);
             }
@@ -36,7 +36,7 @@ namespace Cysharp.Threading.Tasks
         /// <summary>Return value is winArgumentIndex</summary>
         public static UniTask<int> WhenAny(IEnumerable<UniTask> tasks)
         {
-            using (var span = ArrayPoolUtil.Materialize(tasks))
+            using (var span = CompatibleArrayPoolUtil.Materialize(tasks))
             {
                 return new UniTask<int>(new WhenAnyPromise(span.Array, span.Length), 0);
             }

@@ -21,7 +21,7 @@ namespace Cysharp.Threading.Tasks
 
         public static UniTask<T[]> WhenAll<T>(IEnumerable<UniTask<T>> tasks)
         {
-            using (var span = ArrayPoolUtil.Materialize(tasks))
+            using (var span = CompatibleArrayPoolUtil.Materialize(tasks))
             {
                 var promise = new WhenAllPromise<T>(span.Array, span.Length); // consumed array in constructor.
                 return new UniTask<T[]>(promise, 0);
@@ -40,7 +40,7 @@ namespace Cysharp.Threading.Tasks
 
         public static UniTask WhenAll(IEnumerable<UniTask> tasks)
         {
-            using (var span = ArrayPoolUtil.Materialize(tasks))
+            using (var span = CompatibleArrayPoolUtil.Materialize(tasks))
             {
                 var promise = new WhenAllPromise(span.Array, span.Length); // consumed array in constructor.
                 return new UniTask(promise, 0);
