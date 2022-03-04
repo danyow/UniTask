@@ -4,7 +4,7 @@
     "author": { "name": "Cysharp, Inc.", "url": "https://cysharp.co.jp/en/" },
     "version": "2.3.1",
     "unity": "2018.4",
-    "description": "Provides an efficient async/await integration to Unity.",
+    "description": "Provides an efficient async/await integration to Unity. (CString Compatible)",
     "keywords": [ "async/await", "async", "Task", "UniTask" ],
     "license": "MIT",
     "category": "Task",
